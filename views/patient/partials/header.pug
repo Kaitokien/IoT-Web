@@ -1,0 +1,18 @@
+header(class="navbar navbar-expand-lg navbar-light" style="background-color: #0D6EFD;")
+  .container
+    a.navbar-brand(href="/").header-dashboard Hệ thống quản lý sức khỏe người bệnh
+    button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+      span.navbar-toggler-icon
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+    button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
+      span.navbar-toggler-icon
+    .collapse.navbar-collapse#navbarNav
+      ul.navbar-nav.ms-auto
+        if(patient)
+          li.nav-item
+            a.nav-link(href="/user/welcome") Trang tổng quan người bệnh
+          li.nav-item
+            a.nav-link(href="/user/tai-khoan") Tài khoản
+          li.nav-item
+            a.nav-link(href="/user/logout") Đăng xuất
+  

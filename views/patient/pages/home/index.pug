@@ -1,0 +1,12 @@
+extends ../../layouts/default.pug
+
+block main
+
+  .container.mt-5
+    h1.text-center.mb-4 Xin chào #{patient.fullName}
+
+    .row.justify-content-center
+      .col-md-4.mb-4
+        .card
+          .card-body.text-center
+            a.btn.btn-primary.mt-3.w-100(type="button" href="metrics") Xem chỉ số cơ thể và nhiệt độ phòng

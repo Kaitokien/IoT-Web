@@ -1,0 +1,27 @@
+extends ../../layouts/default.pug
+
+block main 
+  body
+    .container-fluid.d-flex.align-items-center.justify-content-center(min-height="100vh" style="background-color: #f8f9fa;")
+      .text-center
+        h1 Hệ thống giám sát sức khỏe người bệnh
+        p.lead.mt-3 Chào mừng bạn đến với hệ thống
+        .mt-4
+          a.btn.btn-primary.btn-lg.m-2(href="/user/login" role="button") Đăng nhập
+          a.btn.btn-secondary.btn-lg.m-2(href="/user/register" role="button") Đăng ký
+        .row.mt-5
+          .col-md-4
+            .card.mb-4.shadow-sm
+              .card-body
+                h5.card-title Giám sát sức khỏe thời gian thực
+                p.card-text Hệ thống của chúng tôi giám sát dữ liệu thời gian thực về nhịp tim, nhiệt độ cơ thể, nhiệt độ phòng và độ ẩm .
+          .col-md-4
+            .card.mb-4.shadow-sm
+              .card-body
+                h5.card-title Kết nối với bác sĩ
+                p.card-text Bệnh nhân có thể kết nối với bác sĩ nếu cần tư vấn về sức khỏe.
+          .col-md-4
+            .card.mb-4.shadow-sm
+              .card-body
+                h5.card-title Đảm bảo an toàn bảo mật
+                p.card-text Dữ liệu được lưu trữ một cách an toàn.

@@ -1,0 +1,43 @@
+extends ../../layouts/default.pug
+
+block main
+  .container.mt-5
+    h1.text-center.mb-4 Chỉ số sức khỏe 
+
+    .row.justify-content-center
+      // Chỉ số Cơ Thể
+      .col-md-5.mb-4
+        .card
+          .card-header.text-center.bg-primary.text-white
+            h5.card-title.mb-0 Chỉ số cơ thể
+          .card-body
+            .row.mb-3
+              .col
+                h6.text-muted Nhiệt độ cơ thể
+                p#bodyTemp.card-text -- °C
+            .row.mb-3
+              .col
+                h6.text-muted Nhịp tim
+                p#heartRate.card-text -- bpm
+            .text-center
+              a.btn.btn-secondary.mt-3(href="/patient/body-metrics/history") Xem Lịch sử Chỉ số Cơ Thể
+
+      // Chỉ số Phòng
+      .col-md-5.mb-4
+        .card
+          .card-header.text-center.bg-success.text-white
+            h5.card-title.mb-0 Chỉ số môi trường phòng
+          .card-body
+            .row.mb-3
+              .col
+                h6.text-muted Nhiệt độ phòng
+                p#roomTemp.card-text -- °C
+            .row.mb-3
+              .col
+                h6.text-muted Độ ẩm phòng
+                p#humidity.card-text -- %
+            .text-center
+              a.btn.btn-secondary.mt-3(href="/patient/room-metrics/history") Xem Lịch sử Chỉ số Phòng
+
+block script
+  script(src="/js/metrics.js")
