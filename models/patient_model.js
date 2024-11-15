@@ -18,7 +18,12 @@ const patientSchema = new mongoose.Schema({
     type: String,
     default: generate.generateRandomString(20)
   },
-  vitalSigns: [vitalSignSchema],
+  measurement: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Measurement"
+    }
+  ],
   status: {
     type: String,
     enum: ['Stable', 'Critical', 'Needs Attention'],
