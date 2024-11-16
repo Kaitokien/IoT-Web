@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const measurementSchema = new mongoose.Schema({
   timestamp: {
@@ -14,4 +14,4 @@ const measurementSchema = new mongoose.Schema({
 });
 
 const Measurement = mongoose.model("Measurement", measurementSchema);
-export default Measurement;
+module.exports = Measurement;
