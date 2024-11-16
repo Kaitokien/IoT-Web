@@ -1,41 +1,39 @@
-const Patient = require('../../models/patient_model');
+const Patient = require("../../models/patient_model");
 //[GET] /login
 module.exports.login = (req, res) => {
-  res.render('patient/pages/user/login');
-}
+  res.render("patient/pages/user/login");
+};
 
 // [GET] /register
 module.exports.register = (req, res) => {
-  res.render('patient/pages/user/register');
-}
+  res.render("patient/pages/user/register");
+};
 
 // [POST] /register
 module.exports.registerPost = async (req, res) => {
   console.log(req.body);
   const existEmail = await Patient.findOne({
-    email: req.body.email
-  })
+    email: req.body.email,
+  });
   const existUsername = await Patient.findOne({
-    username: req.body.username
-  })
-  if(existEmail) {
+    username: req.body.username,
+  });
+  if (existEmail) {
     req.flash("error", "Email đã tồn tại!");
-    res.redirect('back');
+    res.redirect("back");
     return;
-  }
-  else if(existUsername) {
+  } else if (existUsername) {
     req.flash("error", "Tên người dùng đã tồn tại!");
-    res.redirect('back');
+    res.redirect("back");
     return;
-  }
-  else {
+  } else {
     // req.body.password = md5(req.body.password);
     const patient = new Patient(req.body);
     await patient.save();
     res.cookie("tokenUser", patient.tokenUser);
-    res.redirect('/home');
+    res.redirect("/home");
   }
-}
+};
 
 // [POST] /login
 module.exports.loginPost = async (req, res) => {
@@ -44,40 +42,40 @@ module.exports.loginPost = async (req, res) => {
 
   const patient = await Patient.findOne({
     username: username,
-    deleted: false
-  })
+    deleted: false,
+  });
 
-  if(!patient) {
-    req.flash('error', 'Email không tồn tại!')
-    res.redirect('back');
-  } 
-  else if(password !== patient.password) {
-    req.flash('error', 'Sai mật khẩu!')
-    res.redirect('back');
+  if (!patient) {
+    req.flash("error", "Email không tồn tại!");
+    res.redirect("back");
+  } else if (password !== patient.password) {
+    req.flash("error", "Sai mật khẩu!");
+    res.redirect("back");
+  } else {
+    global.userId = patient.id;
+    res.cookie("tokenUser", patient.tokenUser);
+    res.redirect("/user/welcome");
   }
-  else {
-    res.cookie('tokenUser', patient.tokenUser);
-  res.redirect('/user/welcome');
-  }
-}
+};
 
 // [GET] /user/logout
 module.exports.logout = async (req, res) => {
+  global.userId = "";
   res.clearCookie("tokenUser");
-  res.redirect('/');
-}
+  res.redirect("/");
+};
 
 // [GET] /user/welcome
 module.exports.welcome = (req, res) => {
-  res.render('patient/pages/home/index');
-}
+  res.render("patient/pages/home/index");
+};
 
 // [GET] /user/tai-khoan
 module.exports.infoPatient = async (req, res) => {
-  res.render('patient/pages/user/infoPatient');
-}
+  res.render("patient/pages/user/infoPatient");
+};
 
 // [GET] /user/metrics
 module.exports.metrics = (req, res) => {
-  res.render('patient/pages/user/metrics');
-}
+  res.render("patient/pages/user/metrics");
+};
