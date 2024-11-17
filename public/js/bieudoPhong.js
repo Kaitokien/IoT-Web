@@ -35,9 +35,10 @@ const config_nhiet_do = {
   options: {
     scales: {
       y: {
-        max: 70,
+        min: 20,
+        max: 40,
         ticks: {
-          stepSize: 10,
+          stepSize: 2,
           callback: function(value) {
             if (Number.isInteger(value)) {
               return value;
@@ -55,9 +56,10 @@ const config_do_am = {
   options: {
     scales: {
       y: {
+        min: 50,
         max: 100,
         ticks: {
-          stepSize: 10,
+          stepSize: 5,
           callback: function(value) {
             if (value % 20 == 0) {
               return value;
