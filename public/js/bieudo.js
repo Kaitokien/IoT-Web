@@ -48,9 +48,9 @@ const config_nhiet_do = {
     scales: {
       y: {
         min: 35,
-        max: 50,
+        max: 40,
         ticks: {
-          stepSize: 1,
+          stepSize: 0.05,
           callback: function(value) {
             if (Number.isInteger(value)) {
               return value;
@@ -68,7 +68,8 @@ const config_nhip_tim = {
   options: {
     scales: {
       y: {
-        max: 200,
+        min: 40,
+        max: 160,
         ticks: {
           stepSize: 20,
           callback: function(value) {
