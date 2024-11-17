@@ -1,15 +1,14 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
 
 block main
   h1(class="mb-4") Cập nhật thông tin cá nhân
 
-  //- +alert-success(5000)
-  //- +alert-error(5000)
-
+  +alert-success(5000)
+  +alert-error(5000)
   form(
-    action=`${prefixAdmin}/my-account/edit?_method=PATCH` 
+    action='tai-khoan/edit'
     method="post"
-    enctype="multipart/form-data"
   ) 
     div(class="form-group")
       label(for="fullName") Họ tên *
@@ -44,16 +43,8 @@ block main
     div(class="form-group")
       label(for="gender") Giới tính *
       select(name="gender" id="gender") 
-        option(value="Nam") Nam
-        option(value="Nữ") Nữ
-    div(class="form-group")
-      label(for="password") Mật khẩu *
-      input(
-        type="password"
-        class="form-control"
-        id="password"
-        name="password"
-      )
+        option(value="Nam" selected=(patient.gender === 'Nam')) Nam
+        option(value="Nữ" selected=(patient.gender === 'Nữ')) Nữ
     div(class="form-group")
       button(
         type="submit"

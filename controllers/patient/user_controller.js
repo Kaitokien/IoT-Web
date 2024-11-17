@@ -1,4 +1,6 @@
 const Patient = require("../../models/patient_model");
+const SensorData = require("../../models/SensorData");
+const Measurement = require("../../models/Measurement");
 //[GET] /login
 module.exports.login = (req, res) => {
   res.render("patient/pages/user/login");
@@ -78,4 +80,65 @@ module.exports.infoPatient = async (req, res) => {
 // [GET] /user/metrics
 module.exports.metrics = (req, res) => {
   res.render("patient/pages/user/metrics");
+};
+
+//[POST] /tai-khoan/edit
+module.exports.edit = async (req, res) => {
+  const id = res.locals.patient.id;
+  const emailExist = await Patient.findOne({
+    _id: {$ne: id}, //ne: not equal. Tìm những bản ghi khác id kia
+    email: req.body.email,
+    deleted: false
+  });
+  if(emailExist) {
+    req.flash('error', "Email đã tồn tại");
+  } else {
+    req.flash('success', "Cập nhật thông tin thành công");
+    await Patient.updateOne({ _id: id }, req.body);
+  }
+  res.redirect('back');
+}
+
+// [GET] /body-metrics/history
+module.exports.bodyMetricsHistory = async (req, res) => {
+  // console.log(res.locals.patient);
+  const measurementList = res.locals.patient.measurement;
+  let humanMetrics = [];
+  for (let measurement of measurementList) {
+    // let data = await SensorData.find({_id: ms.id});
+    let measurementData = await Measurement.findById(measurement);
+    let bodyTemp = await SensorData.findById(measurementData.sensors[2]);
+    let heartBeat = await SensorData.findById(measurementData.sensors[3]);
+    humanMetrics.push({
+      timestamp: measurementData.timestamp,
+      bodyTemp: bodyTemp.value,
+      heartBeat: heartBeat.value,
+    });
+  }
+  // console.log(humanMetrics);
+  res.render("patient/pages/user/bodyMetricsHistory", {
+    chiSoCoThe: humanMetrics
+  });
+};
+
+// [GET] /room-metrics/history
+module.exports.roomMetricsHistory = async (req, res) => {
+  // console.log(res.locals.patient);
+  const measurementList = res.locals.patient.measurement;
+  let roomMetrics = [];
+  for (let measurement of measurementList) {
+    // let data = await SensorData.find({_id: ms.id});
+    let measurementData = await Measurement.findById(measurement);
+    let roomTemp = await SensorData.findById(measurementData.sensors[0]);
+    let moisture = await SensorData.findById(measurementData.sensors[1]);
+    roomMetrics.push({
+      timestamp: measurementData.timestamp,
+      roomTemp: roomTemp.value,
+      moisture: moisture.value,
+    });
+  }
+  // console.log(humanMetrics);
+  res.render("patient/pages/user/roomMetrics", {
+    chiSoPhong: roomMetrics
+  });
 };

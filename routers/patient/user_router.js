@@ -32,5 +32,8 @@ router.get(
 
 router.get('/tai-khoan', controller.infoPatient);
 router.get('/metrics', controller.metrics);
+router.post('/tai-khoan/edit', controller.edit);
 
+router.get('/body-metrics/history', controller.bodyMetricsHistory);
+router.get('/room-metrics/history', controller.roomMetricsHistory);
 module.exports = router;

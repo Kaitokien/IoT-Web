@@ -1,0 +1,38 @@
+extends ../../layouts/default.pug
+
+block main
+  h1(class="mb-4") Lịch sử đo chỉ số phòng
+
+  if patient.measurement.length > 0
+    table(class="table table-striped mt-4")
+      thead
+        tr
+          th Ngày đo
+          th Nhiệt độ phòng (°C)
+          th Độ ẩm (bpm)
+      tbody
+        each measure in chiSoPhong
+          tr
+            td #{measure.timestamp.toLocaleString()}
+            td #{measure.roomTemp} °C
+            td #{measure.moisture} %
+  else
+    p.mt-4 Không có lịch sử đo chỉ số phòng.
+
+  div(class="chart-container mb-5")
+    div(class="chart-header")
+      h2(class="chart-title") Biểu đồ nhiệt độ phòng
+    div(class="chart-body")
+      canvas#bieu-do-nhiet-do
+
+  div(class="chart-container mb-5")
+    div(class="chart-header")
+      h2(class="chart-title") Biểu đồ độ ẩm
+    div(class="chart-body")  
+      canvas#bieu-do-do-am
+
+  script(src="https://cdn.jsdelivr.net/npm/chart.js")
+  script. 
+    const chiSoPhong = !{JSON.stringify(chiSoPhong)};
+  script(src="/js/bieudoPhong.js")
+  

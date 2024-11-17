@@ -1,0 +1,45 @@
+extends ../../layouts/default.pug
+
+block main
+  h1(class="mb-4") Lịch sử đo chỉ số cơ thể - #{patient.fullName}
+
+  if patient.measurement.length > 0
+    table(class="table table-striped mt-4")
+      thead
+        tr
+          th Ngày đo
+          th Nhiệt độ cơ thể (°C)
+          th Nhịp tim (bpm)
+          th Trạng thái
+      tbody
+        each measure in chiSoCoThe
+          tr
+            td #{measure.timestamp.toLocaleString()}
+            td #{measure.bodyTemp} °C
+            td #{measure.heartBeat} bpm
+            if measure.bodyTemp > 38 || measure.heartBeat > 100
+              td.text-danger Cần Chú Ý
+            else if measure.bodyTemp < 36 || measure.heartBeat < 60
+              td.text-warning Theo Dõi
+            else
+              td.text-success Ổn Định
+  else
+    p.mt-4 Không có lịch sử đo chỉ số cơ thể.
+
+  div(class="chart-container mb-5")
+    div(class="chart-header")
+      h2(class="chart-title") Biểu đồ nhiệt độ cơ thể
+    div(class="chart-body")
+      canvas#bieu-do-suc-khoe
+
+  div(class="chart-container mb-5")
+    div(class="chart-header")
+      h2(class="chart-title") Biểu đồ nhịp tim
+    div(class="chart-body")  
+      canvas#bieu-do-nhip-tim
+
+  script(src="https://cdn.jsdelivr.net/npm/chart.js")
+  script. 
+    const chiSoCoThe = !{JSON.stringify(chiSoCoThe)};
+  script(src="/js/bieudo.js")
+  
