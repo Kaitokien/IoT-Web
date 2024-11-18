@@ -33,7 +33,7 @@ module.exports.registerPost = async (req, res) => {
     const patient = new Patient(req.body);
     await patient.save();
     res.cookie("tokenUser", patient.tokenUser);
-    res.redirect("/home");
+    res.redirect("/user/welcome");
   }
 };
 

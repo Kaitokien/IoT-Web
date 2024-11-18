@@ -1,0 +1,17 @@
+header.header
+  .container-fluid
+    .row-align-items-center
+      .col-3
+        .inner-logo
+          a(href="/doctor/dashboard") Bác sĩ
+
+      .col-9
+        div(class='text-right')
+          //- a(
+          //-   href=`${prefixAdmin}/my-account`
+          //-   class="btn btn-primary btn-sm"
+          //- ) #{user.fullName}
+          a(
+            href=`auth/logout`
+            class="btn btn-danger btn-sm"
+          ) Đăng xuất

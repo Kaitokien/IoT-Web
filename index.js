@@ -5,6 +5,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const router = require("./routers/patient/index_router");
+const routerAdmin = require('./routers/doctor/index_router');
 const database = require("./config/database");
 const PORT = process.env.PORT;
 const bodyParser = require("body-parser");
@@ -43,6 +44,7 @@ app.use(flash());
 // end flash
 
 router(app);
+routerAdmin(app);
 
 // Start server
 

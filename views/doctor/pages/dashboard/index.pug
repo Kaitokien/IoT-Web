@@ -1,0 +1,14 @@
+extends ../../layouts/default.pug
+
+block main
+  h1 #{titlePage}
+
+  .row.mt-4
+    .col-12
+      .card.mb-4
+        .card-header Thông tin tài khoản
+        .card-body
+          if(doctor.fullName)
+            p Họ tên: <b>#{doctor.fullName}</b>
+          if(doctor.email)
+            p Email: <b>#{doctor.email}</b>

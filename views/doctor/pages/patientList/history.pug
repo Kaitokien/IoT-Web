@@ -1,0 +1,31 @@
+extends ../../layouts/default.pug
+
+block main
+  h1(class="mb-4") Lịch sử đo chỉ số cơ thể - Bệnh nhân #{patient.fullName}
+
+  if Metrics.length > 0
+    table(class="table table-striped mt-4")
+      thead
+        tr
+          th Ngày đo
+          th Nhiệt độ cơ thể (°C)
+          th Nhịp tim (bpm)
+          th Nhiệt độ phòng (°C)
+          th Độ ẩm phòng (%)
+          th Trạng thái
+      tbody
+        each metric in Metrics
+          tr
+            td #{metric.timestamp.toLocaleString()} 
+            td #{metric.bodyTemp} °C
+            td #{metric.heartBeat} bpm
+            td #{metric.roomTemp.value} °C
+            td #{metric.moisture.value} %
+            if metric.bodyTemp > 38 || metric.heartBeat > 100 || metric.roomTemp > 45 
+              td.text-danger Cần Chú Ý
+            else if metric.bodyTemp < 36 || metric.heartBeat < 60 || metric.roomTemp < 18 || metric.moisture < 30
+              td.text-warning Theo Dõi
+            else
+              td.text-success Ổn Định
+  else
+    p.mt-4 Không có lịch sử đo chỉ số cơ thể.
