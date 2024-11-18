@@ -31,9 +31,12 @@ client.on("error", (error) => {
 client.on("message", async (topic, message) => {
   try {
     const userId = global.userId;
+    console.log(userId);
     const patient = await Patient.findOne({
-      id: userId,
+      _id: userId,
     });
+
+    console.log(patient);
 
     const dataList = JSON.parse(message.toString());
     console.log(dataList);
